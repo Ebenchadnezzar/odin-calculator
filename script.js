@@ -18,7 +18,33 @@ function onStart() {
 }
 
 function operate(a, symbol, b) {
-    console.log("Operate not yet implemented");
+    let result;
+    a = +a; // They're stored as strings
+    b = +b;
+    
+    switch (symbol) {
+        case "/":
+            if (b === 0) { result = 0; }
+            else { result = a / b; }
+            break;
+        case "X":
+            result = a * b;
+            break;
+        case "-":
+            result = a - b;
+            break;
+        case "+":
+            result = a + b;
+            break;
+    }
+
+    // Display
+    display.textContent = result;
+
+    // Cleanup
+    operand1 = null;
+    operand2 = null;
+    operator = null;
 }
 
 function onMainButtonPress(e) {
@@ -37,10 +63,12 @@ function onMainButtonPress(e) {
         case "9":
         case ".":
             if (operator === null) {
-                operand1 += symbol;
+                if (operand1 === null) { operand1 = symbol; }
+                else { operand1 += symbol; }
             }
             else {
-                operand2 += symbol
+                if (operand2 === null) { operand2 = symbol; }
+                else { operand2 += symbol; }
             }
             display.textContent += symbol;
             break;

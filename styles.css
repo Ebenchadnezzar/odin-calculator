@@ -1,3 +1,57 @@
 body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(27, 27, 26);
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: rgb(192, 175, 130);
+    min-height: 75vh;
+    width: 450px;
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.display {
+    width: 100%;
+    min-height: 100px;
+    background-color: rgb(226, 213, 178);
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.mainButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 75%;
+}
+
+.mathButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 16px;
+    width: 25%;
+}
+
+.buttons button {
+    width: 80px;
+    height: 80px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: rgb(226, 213, 178);
 }

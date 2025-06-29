@@ -78,8 +78,6 @@ function onMainButtonPress(e) {
         if (symbol === "\\") {symbol = "/"; }
     }
 
-    console.log(symbol);
-
     switch (symbol) {
         case ".":
             // If the current operand is empty, append a 0 to the display (only) beforehand
@@ -169,7 +167,6 @@ function onMainButtonPress(e) {
 }
 
 function onClearButtonPress(e) {
-    console.log(e.key);
     if ((e.type === "click" && e.target.id === "clearButton") || (e.type === "keydown" && e.key === "Delete")) {
         display.textContent = "";
         operand1 = null;

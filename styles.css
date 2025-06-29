@@ -12,9 +12,9 @@ body {
 .calculator {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
     background-color: rgb(192, 175, 130);
-    min-height: 75vh;
+    height: 650px;
     width: 450px;
     border-radius: 25px;
     padding: 25px;
@@ -57,9 +57,16 @@ body {
     width: 25%;
 }
 
-.buttons button {
-    width: 80px;
-    height: 80px;
+.clearButtons {
+    display: flex;
+    justify-content: end;
+    align-items: baseline;
+    gap: 58px;
+}
+
+.buttons button, .clearButtons button {
+    width: 90px;
+    height: 90px;
     padding: 0;
     margin: 0;
     border: none;

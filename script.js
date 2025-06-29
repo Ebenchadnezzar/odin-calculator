@@ -1,3 +1,6 @@
+// Constants
+const DISPLAY_DECIMAL_PLACES = 2;
+
 // Globals
 let operand1 = null;    // V
 let operand2 = null;    // Stored as a string
@@ -37,6 +40,8 @@ function operate() {
             result = operand1 + operand2;
             break;
     }
+
+    result = result.toFixed(DISPLAY_DECIMAL_PLACES);
 
     // Display
     display.textContent = result;
@@ -87,7 +92,7 @@ function onMainButtonPress(e) {
                 operator = symbol;
                 display.textContent += " " + symbol + " ";
             }
-            else if (operand1 !== null & operator !== null && operand2 !== null) {
+            else if (operand1 !== null && operator !== null && operand2 !== null) {
                 // If you've arleady typed a full expression, but then type
                 // another operator, it calculates the first expression,
                 // at treats it as the first operand.

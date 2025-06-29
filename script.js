@@ -24,6 +24,10 @@ function onStart() {
     clearButtons.forEach((element) => {
         element.addEventListener("click", onClearButtonPress);
     });
+
+    // Set up keyboard inputs
+    document.addEventListener("keydown", onMainButtonPress);
+    document.addEventListener("keydown", onClearButtonPress);
 }
 
 function operate() {
@@ -61,7 +65,20 @@ function operate() {
 }
 
 function onMainButtonPress(e) {
-    let symbol = e.target.textContent;
+    let symbol;
+    if (e.type == "click") {
+        symbol = e.target.textContent;
+    }
+    else {
+        symbol = e.key;
+
+        // Symbol Corrections
+        if (symbol === "x" || symbol === "*") { symbol = "X"; }
+        if (symbol === "Enter") {symbol = "="; }
+        if (symbol === "\\") {symbol = "/"; }
+    }
+
+    console.log(symbol);
 
     switch (symbol) {
         case ".":
@@ -152,13 +169,14 @@ function onMainButtonPress(e) {
 }
 
 function onClearButtonPress(e) {
-    if (e.target.id === "clearButton") {
+    console.log(e.key);
+    if ((e.type === "click" && e.target.id === "clearButton") || (e.type === "keydown" && e.key === "Delete")) {
         display.textContent = "";
         operand1 = null;
         operator = null;
         operand2 = null;
     }
-    else if (e.target.id === "backspaceButton") {
+    else if ((e.type === "click" && e.target.id === "backspaceButton") || (e.type === "keydown" && e.key === "Backspace")) {
         display.textContent = display.textContent.slice(0, -1);
 
         // Remove a character from the latest possible chunk of

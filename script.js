@@ -1,5 +1,6 @@
 // Constants
 const DISPLAY_DECIMAL_PLACES = 2;
+const MAX_OPERAND_LENGTH = 6;
 
 // Globals
 let operand1 = null;    // V
@@ -63,6 +64,21 @@ function onMainButtonPress(e) {
     let symbol = e.target.textContent;
 
     switch (symbol) {
+        case ".":
+            // If the current operand is empty, append a 0 to the display (only) beforehand
+            if (operand1 === null || (operand2 === null && operator !== null)) {
+                if (operand1 === null) {
+                    display.textContent = "0";
+                }
+                else {
+                    display.textContent += "0";
+                }
+            }    
+            // If there's already a "."
+            if ((operand1 !== null && operator === null && operand1.includes(".")) || (operand2 !== null && operand2.includes("."))) {
+                return;
+            }
+            // Intentionally flow into rest of switch statement
         case "0":
         case "1":
         case "2":
@@ -73,8 +89,12 @@ function onMainButtonPress(e) {
         case "7":
         case "8":
         case "9":
-        case ".":
-            if (operand1 === null) {
+            // Are there too many character in the operand?
+            if (operator === null && operand1 !== null && operand1.length >= MAX_OPERAND_LENGTH
+                || operator !== null && operand2 !== null && operand2.length >= MAX_OPERAND_LENGTH) { return; }
+
+            // Account for the case of the user just typing "."
+            if (operand1 === null && display.textContent !== "0") {
                 display.textContent = symbol;
             }
             else {
@@ -97,6 +117,7 @@ function onMainButtonPress(e) {
             if (operand1 !== null && operator === null) {
                 // Standard behavior, if you hit a number then hit a symbol
                 operator = symbol;
+                if (display.textContent.at(display.textContent.length - 1) === ".") { display.textContent += "0"; }
                 display.textContent += " " + symbol + " ";
             }
             else if (operand1 !== null && operator !== null && operand2 !== null) {
@@ -106,6 +127,7 @@ function onMainButtonPress(e) {
                 operate();
                 operand1 = display.textContent;
                 operator = symbol;
+                if (display.textContent.at(display.textContent.length - 1) === ".") { display.textContent += "0"; }
                 display.textContent += " " + symbol + " ";
             }
             else if (operand1 === null && operator === null && operand2 === null && display.textContent !== "") {
@@ -113,9 +135,16 @@ function onMainButtonPress(e) {
                 // operator, it will treat the result as the first operand
                 operand1 = display.textContent;
                 operator = symbol;
+                if (display.textContent.at(display.textContent.length - 1) === ".") { display.textContent += "0"; }
                 display.textContent += " " + symbol + " ";
             }
         case "=":
+            if (operand1 === ".") {
+                operand1 = 0;
+            }
+            if (operand2 === ".") {
+                operand2 = 0;
+            }
             if (operand1 != null && operator != null && operand2 != null) {
                 operate();
             }
@@ -123,7 +152,6 @@ function onMainButtonPress(e) {
 }
 
 function onClearButtonPress(e) {
-    console.log(e.target.classList);
     if (e.target.id === "clearButton") {
         display.textContent = "";
         operand1 = null;

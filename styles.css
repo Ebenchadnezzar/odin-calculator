@@ -24,6 +24,7 @@ body {
     width: 100%;
     min-height: 100px;
     background-color: rgb(226, 213, 178);
+    border-radius: 5px;
 }
 
 .display p {
@@ -59,9 +60,7 @@ body {
 
 .clearButtons {
     display: flex;
-    justify-content: end;
-    align-items: baseline;
-    gap: 58px;
+    gap: 16px;
 }
 
 .buttons button, .clearButtons button {
@@ -72,4 +71,5 @@ body {
     border: none;
     background-color: rgb(226, 213, 178);
     font-size: 26px;
+    border-radius: 24px;
 }

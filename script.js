@@ -12,11 +12,16 @@ let display = document.querySelector(".display p");
 onStart();
 
 function onStart() {
-    let mainButtons = document.querySelectorAll(".mainButtons button, .mathButtons button");
-    
     // Set up the main buttons (Numbers, decimal, equal, and math buttons)
+    let mainButtons = document.querySelectorAll(".mainButtons button, .mathButtons button");
     mainButtons.forEach((element) => {
         element.addEventListener("click", onMainButtonPress);
+    });
+
+    // Set up Clear/Delete buttons
+    let clearButtons = document.querySelectorAll(".clearButtons button");
+    clearButtons.forEach((element) => {
+        element.addEventListener("click", onClearButtonPress);
     });
 }
 
@@ -41,7 +46,9 @@ function operate() {
             break;
     }
 
-    result = result.toFixed(DISPLAY_DECIMAL_PLACES);
+    if (!Number.isInteger(+result)) {
+        result = result.toFixed(DISPLAY_DECIMAL_PLACES);
+    }
 
     // Display
     display.textContent = result;
@@ -112,5 +119,30 @@ function onMainButtonPress(e) {
             if (operand1 != null && operator != null && operand2 != null) {
                 operate();
             }
+    }
+}
+
+function onClearButtonPress(e) {
+    console.log(e.target.classList);
+    if (e.target.id === "clearButton") {
+        display.textContent = "";
+        operand1 = null;
+        operator = null;
+        operand2 = null;
+    }
+    else if (e.target.id === "backspaceButton") {
+        display.textContent = display.textContent.slice(0, -1);
+
+        // Remove a character from the latest possible chunk of
+        // the expression
+        if (operand2 != null) {
+            operand2 = operand2.slice(0, -1);
+        }
+        else if (operator != null) {
+            operator = null;
+        }
+        else if (operand1 != null) {
+            operand1 = operand1.slice(0, -1);
+        }
     }
 }

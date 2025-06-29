@@ -4,13 +4,13 @@ let operand2 = null;    // Stored as a string
 let operator = null;
 
 // Element References
-let display = document.querySelector(".display");
+let display = document.querySelector(".display p");
 
 onStart();
 
 function onStart() {
     let mainButtons = document.querySelectorAll(".mainButtons button, .mathButtons button");
-    console.log(display.textContent);
+    
     // Set up the main buttons (Numbers, decimal, equal, and math buttons)
     mainButtons.forEach((element) => {
         element.addEventListener("click", onMainButtonPress);
@@ -85,7 +85,7 @@ function onMainButtonPress(e) {
             if (operand1 !== null && operator === null) {
                 // Standard behavior, if you hit a number then hit a symbol
                 operator = symbol;
-                display.textContent += symbol;
+                display.textContent += " " + symbol + " ";
             }
             else if (operand1 !== null & operator !== null && operand2 !== null) {
                 // If you've arleady typed a full expression, but then type
@@ -94,14 +94,14 @@ function onMainButtonPress(e) {
                 operate();
                 operand1 = display.textContent;
                 operator = symbol;
-                display.textContent += symbol;
+                display.textContent += " " + symbol + " ";
             }
             else if (operand1 === null && operator === null && operand2 === null && display.textContent !== "") {
                 // If you've just completed an operation and press an
                 // operator, it will treat the result as the first operand
                 operand1 = display.textContent;
                 operator = symbol;
-                display.textContent += symbol;
+                display.textContent += " " + symbol + " ";
             }
         case "=":
             if (operand1 != null && operator != null && operand2 != null) {

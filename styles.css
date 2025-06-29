@@ -26,6 +26,16 @@ body {
     background-color: rgb(226, 213, 178);
 }
 
+.display p {
+    margin: 0 15px;
+    padding: 0;
+    line-height: 100px;
+    text-align: right;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .buttons {
     display: flex;
     gap: 16px;
